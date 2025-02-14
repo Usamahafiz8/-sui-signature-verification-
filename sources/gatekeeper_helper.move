@@ -4,16 +4,15 @@ module g_bucks::gatekeeper_helper {
 
     // Admin public key
     const ADMIN_PUBKEY: vector<u8> = vector[  
-         86, 236, 228, 122, 158, 190, 250,  50,
-    121, 154, 235, 148, 176, 115,  50,  13,
-     55, 177,   7, 201,  80,  15, 153, 207,
-    150,  81,  80, 211,  87, 181, 231,  54
-
+     29,  25,  39, 192, 168, 245, 134, 74,
+    150,  75,  38, 131, 150, 180,   9, 24,
+    176, 249, 100,  84,  26, 216,  50, 81,
+     92,  75, 155,  23,  65, 117, 128,  1
 
     ];
 
     // Error codes
-    const ESignatureNotVerified: u64 = 1001;
+    const ESignatureNotVerified: u64 = 1;
 
     /// Function to verify a signature against a given message
     public fun test_function(
@@ -27,3 +26,5 @@ module g_bucks::gatekeeper_helper {
         // Function logic goes here
     }
 }
+
+

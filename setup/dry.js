@@ -42,46 +42,33 @@ async function main(packageId) {
     const client = new SuiClient({ url: "https://fullnode.testnet.sui.io" });
 
     const keypair = await getWalletKeypair();
-    const sender = keypair.toSuiAddress(); // Set the sender
+    const sender = keypair.toSuiAddress(); 
 
     const txb = new Transaction();
-    txb.setSender(sender); // ✅ Fix: Add transaction sender
-
+    txb.setSender(sender); 
     txb.moveCall({
-      target: `${packageId}::gatekeeper_helper::test_function`,
+      target: `${packageId}::shareobject::gatekeeper_helper`,
       arguments: [
         txb.pure.vector(
           "u8",
           [
-            178, 232, 169, 174, 43, 228, 123, 45, 106, 166, 199, 99, 183, 61,
-            249, 182, 168, 45, 126, 77, 179, 154, 218, 250, 147, 73, 234, 187,
-            153, 125, 167, 137, 50, 230, 58, 160, 234, 91, 101, 175, 27, 170,
-            226, 218, 223, 179, 59, 114, 158, 103, 236, 222,
+ 
+            178, 232, 169, 174,  43, 228, 123,  45, 106,
+            167, 127,  54, 197, 206,  43, 226, 108, 240,
+            243, 184,  94, 166, 156,  43, 107,  74, 173,
+            166, 218, 125, 179,   6, 179, 227, 215, 107,
+            231,  57, 160, 142, 106, 118, 234, 103,  28,
+            207, 124, 178, 146, 153,  52, 165
           ]
         ),
         txb.pure.vector(
           "u8",
-          [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
+          [ 104, 101, 108, 108,
+            111,  32, 119, 111,
+            114, 108, 100]
         ),
       ],
     });
-
-    console.log(
-      "offffffffff",
-      txb.pure.vector(
-        "u8",
-        [
-          178, 232, 169, 174, 43, 228, 123, 45, 106, 166, 199, 99, 183, 61,
-          249, 182, 168, 45, 126, 77, 179, 154, 218, 250, 147, 73, 234, 187,
-          153, 125, 167, 137, 50, 230, 58, 160, 234, 91, 101, 175, 27, 170,
-          226, 218, 223, 179, 59, 114, 158, 103, 236, 222,
-        ]
-      ),
-      txb.pure.vector(
-        "u8",
-        [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]
-      )
-    );
 
     txb.setGasBudget(500000000);
 
@@ -93,7 +80,7 @@ async function main(packageId) {
     // console.log("Dry Run Result:", JSON.stringify(dryRun, null, 2));
 
     // const dryRun = await client.dryRunTransactionBlock({ transactionBlock: txBytes });
-    // console.log("Dry Run Result:", dryRun);
+    console.log("Dry Run Result:", dryRun);
     return dryRun;
   } catch (err) {
     console.error("Error in dryTest:", err.status);
@@ -103,5 +90,5 @@ async function main(packageId) {
 
 getWalletBalance();
 const packageId =
-  "0xc3d84e6b311ac808defc40578abcd537aae1eb844b6762c3787e76704bd68dbd";
+  "0x25f9a990658b1d020e55bd9f6dbfa95654ded4d904b38573043b1b6a267001ae";
 main(packageId);
