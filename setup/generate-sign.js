@@ -12,13 +12,20 @@ import { fromB64, toB64 } from '@mysten/bcs';
     // use default instead, it is easier to match your type
     const keypair = Ed25519Keypair.fromSecretKey(secretKey)
     const publicKey = keypair.getPublicKey()
-
     const message = new TextEncoder().encode('hello world');
-    const { signature } = await keypair.signPersonalMessage(message);
+    const signature = await keypair.sign(message);
+    // console.dir(Array.from(toNumberTable(signature)), { maxArrayLength: null });
+    // Log signature as an array
+console.dir(Array.from(signature), { maxArrayLength: null });
+
+    console.log('Message (Base64):', message); 
+
+    // const message = new TextEncoder().encode('hello world');
+    // const { signature } = await keypair.signPersonalMessage(message);
     const isValid = await publicKey.verifyPersonalMessage(message, signature);    
     
-    console.log('Signature (Base64):', isValid);
-    console.log('Message (Base64):', message);
+    // console.log('Signature (Base64):', isValid);
+    // console.log('Message (Base64):', message);
 
     const privKeyArray = Uint8Array.from(Array.from(fromB64(secretKey)));
 
